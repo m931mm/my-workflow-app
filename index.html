@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>My Workflow — Мобильное приложение</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#121820">
+  <link rel="apple-touch-icon" href="icon.png">
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="icon.png" alt="Icon">
+      <h1>My Workflow</h1>
+    </div>
+  </header>
+
+  <main class="app-container">
+    
+    <!-- CONTROLS SIDE -->
+    <div class="controls-side">
+
+      <!-- 1. PHOTOS -->
+      <div class="card">
+        <div class="card-title">1. Загрузка фотографий</div>
+        <div class="drop-zones">
+          <div class="drop-zone">
+            <input type="file" id="inputBefore" accept="image/*">
+            <div class="drop-icon">📁</div>
+            <div class="drop-title" id="titleBefore">Фото «БЫЛО»</div>
+            <div class="drop-sub">Нажмите для выбора</div>
+          </div>
+
+          <div class="drop-zone">
+            <input type="file" id="inputAfter" accept="image/*">
+            <div class="drop-icon">📁</div>
+            <div class="drop-title" id="titleAfter">Фото «СТАЛО»</div>
+            <div class="drop-sub">Нажмите для выбора</div>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary" id="btnSwap">🔄 Поменять местами «Было» и «Стало»</button>
+      </div>
+
+      <!-- 2. POSITION & ZOOM -->
+      <div class="card">
+        <div class="card-title">2. Центрирование фото</div>
+        
+        <div class="form-group">
+          <div class="slider-label"><span>Масштаб «БЫЛО»</span><span id="sliderScaleBVal">100</span>%</div>
+          <input type="range" id="sliderScaleB" min="50" max="300" value="100">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label"><span>Сдвиг X «БЫЛО»</span><span id="sliderOffXBVal">0</span>px</div>
+          <input type="range" id="sliderOffXB" min="-500" max="500" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label"><span>Сдвиг Y «БЫЛО»</span><span id="sliderOffYBVal">0</span>px</div>
+          <input type="range" id="sliderOffYB" min="-500" max="500" value="0">
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 12px 0;">
+
+        <div class="slider-row">
+          <div class="slider-label"><span>Масштаб «СТАЛО»</span><span id="sliderScaleAVal">100</span>%</div>
+          <input type="range" id="sliderScaleA" min="50" max="300" value="100">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label"><span>Сдвиг X «СТАЛО»</span><span id="sliderOffXAVal">0</span>px</div>
+          <input type="range" id="sliderOffXA" min="-500" max="500" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label"><span>Сдвиг Y «СТАЛО»</span><span id="sliderOffYAVal">0</span>px</div>
+          <input type="range" id="sliderOffYA" min="-500" max="500" value="0">
+        </div>
+      </div>
+
+      <!-- 3. FORMAT & DESIGN -->
+      <div class="card">
+        <div class="card-title">3. Формат и Стиль</div>
+        
+        <div class="form-group">
+          <label>Соотношение сторон:</label>
+          <select id="selectRatio">
+            <option value="9:16">9:16 (Stories / Reels / TikTok)</option>
+            <option value="4:5">4:5 (Посты VK / Instagram)</option>
+            <option value="1:1">1:1 (Квадрат)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Макет:</label>
+          <select id="selectLayout">
+            <option value="vertical">Вертикально (друг под другом)</option>
+            <option value="horizontal">Горизонтально (рядом)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Фон кадра:</label>
+          <select id="selectBg">
+            <option value="black">Черный (#000000)</option>
+            <option value="darkgray">Темно-серый (#1a1a1a)</option>
+            <option value="white">Белый (#ffffff)</option>
+          </select>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label"><span>Скругление углов</span><span id="sliderRadiusVal">40</span>px</div>
+          <input type="range" id="sliderRadius" min="0" max="100" value="40">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label"><span>Отступ между фото</span><span id="sliderGapVal">20</span>px</div>
+          <input type="range" id="sliderGap" min="0" max="100" value="20">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label"><span>Внешнее поле</span><span id="sliderMarginVal">40</span>px</div>
+          <input type="range" id="sliderMargin" min="0" max="100" value="40">
+        </div>
+      </div>
+
+      <!-- 4. TEXT & WATERMARK -->
+      <div class="card">
+        <div class="card-title">4. Заголовок и Авторство</div>
+
+        <div class="form-group" style="flex-direction: row; align-items: center; justify-content: space-between;">
+          <label for="checkHeader">Показывать верхний заголовок:</label>
+          <input type="checkbox" id="checkHeader" checked style="width: 20px; height: 20px; accent-color: var(--accent-color);">
+        </div>
+
+        <div class="form-group">
+          <label>Текст заголовка:</label>
+          <input type="text" id="inputHeader" value="ME WORKFLOW">
+        </div>
+
+        <div class="form-group">
+          <label>Плашка 1 / 2:</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <input type="text" id="inputBadgeB" value="БЫЛО">
+            <input type="text" id="inputBadgeA" value="СТАЛО">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Стиль плашек:</label>
+          <select id="selectBadgeStyle">
+            <option value="dark">Закругленная темная плашка</option>
+            <option value="light">Светлая плашка</option>
+            <option value="text">Просто текст (без фона)</option>
+            <option value="none">Не показывать</option>
+          </select>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 12px 0;">
+
+        <div class="form-group">
+          <label>Водяной знак / Никнейм:</label>
+          <input type="text" id="inputWM" value="@voloshin.life">
+        </div>
+
+        <div class="form-group">
+          <label>Позиция ника:</label>
+          <select id="selectWMPos">
+            <option value="center">По центру (между фото)</option>
+            <option value="bottom">Внизу кадра</option>
+            <option value="none">Не показывать</option>
+          </select>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-label"><span>Размер ника</span><span id="sliderWMSizeVal">38</span>px</div>
+          <input type="range" id="sliderWMSize" min="20" max="70" value="38">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PREVIEW SIDE -->
+    <div class="preview-side">
+      <div class="preview-container">
+        <canvas id="mainCanvas"></canvas>
+
+        <div class="actions-grid">
+          <button class="btn btn-primary btn-full" id="btnDownload">💾 Скачать изображение</button>
+          <button class="btn btn-secondary" id="btnShare">📤 Поделиться в соцсетях</button>
+          <button class="btn btn-secondary" id="btnCopy">📋 Скопировать</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Было-Стало Reels PWA App &copy; 2026. Обработка локально на вашем устройстве.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

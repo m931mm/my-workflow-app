@@ -237,10 +237,41 @@ function renderCanvas() {
 
 // Setup Event Listeners
 function setupEvents() {
+  const resetSlotB = () => {
+    state.scaleBefore = 100;
+    state.offXBefore = 0;
+    state.offYBefore = 0;
+    document.getElementById('sliderScaleB').value = 100;
+    document.getElementById('sliderScaleBVal').textContent = '100';
+    document.getElementById('sliderOffXB').value = 0;
+    document.getElementById('sliderOffXBVal').textContent = '0';
+    document.getElementById('sliderOffYB').value = 0;
+    document.getElementById('sliderOffYBVal').textContent = '0';
+  };
+
+  const resetSlotA = () => {
+    state.scaleAfter = 100;
+    state.offXAfter = 0;
+    state.offYAfter = 0;
+    document.getElementById('sliderScaleA').value = 100;
+    document.getElementById('sliderScaleAVal').textContent = '100';
+    document.getElementById('sliderOffXA').value = 0;
+    document.getElementById('sliderOffXAVal').textContent = '0';
+    document.getElementById('sliderOffYA').value = 0;
+    document.getElementById('sliderOffYAVal').textContent = '0';
+  };
+
+  document.getElementById('btnAutoCenter').addEventListener('click', () => {
+    resetSlotB();
+    resetSlotA();
+    renderCanvas();
+  });
+
   document.getElementById('inputBefore').addEventListener('change', async (e) => {
     state.imgBefore = await loadImage(e.target.files[0]);
     if (state.imgBefore) {
       document.getElementById('titleBefore').textContent = '✅ Фото «БЫЛО»';
+      resetSlotB();
     }
     renderCanvas();
   });
@@ -249,6 +280,7 @@ function setupEvents() {
     state.imgAfter = await loadImage(e.target.files[0]);
     if (state.imgAfter) {
       document.getElementById('titleAfter').textContent = '✅ Фото «СТАЛО»';
+      resetSlotA();
     }
     renderCanvas();
   });

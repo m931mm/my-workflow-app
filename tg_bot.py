@@ -56,13 +56,25 @@ def get_app_keyboard():
         [InlineKeyboardButton(text="📢 Наш канал @lifevoloshin", url=CHANNEL_LINK)]
     ])
 
+from aiogram.client.session.aiohttp import AiohttpSession
+
 async def main():
     token = get_token()
     if not token or token == "YOUR_TELEGRAM_BOT_TOKEN":
         print(f"Error: Token not found! Please paste your token from @BotFather into {TOKEN_FILE} or BOT_TOKEN env var.")
         sys.exit(1)
 
-    bot = Bot(token=token)
+    proxy = os.getenv("HTTP_PROXY") or os.getenv("http_proxy") or os.getenv("HTTPS_PROXY") or os.getenv("https_proxy")
+    if not proxy and os.path.exists("/home/voleco"):
+        proxy = "http://proxy.server:3128"
+
+    if proxy:
+        print(f"Using proxy: {proxy}")
+        session = AiohttpSession(proxy=proxy)
+        bot = Bot(token=token, session=session)
+    else:
+        bot = Bot(token=token)
+
     dp = Dispatcher()
 
     @dp.message(CommandStart())
